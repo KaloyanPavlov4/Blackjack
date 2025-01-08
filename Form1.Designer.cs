@@ -34,7 +34,7 @@
             this.pictureBoxDealer2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlayer2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlayer1 = new System.Windows.Forms.PictureBox();
-            this.buttonStand = new System.Windows.Forms.Button();
+            this.standButton = new System.Windows.Forms.Button();
             this.hitMeButton = new System.Windows.Forms.Button();
             this.dealButton = new System.Windows.Forms.Button();
             this.pictureBoxPlayer3 = new System.Windows.Forms.PictureBox();
@@ -110,14 +110,14 @@
             this.pictureBoxPlayer1.TabIndex = 22;
             this.pictureBoxPlayer1.TabStop = false;
             // 
-            // buttonStand
+            // standButton
             // 
-            this.buttonStand.Location = new System.Drawing.Point(257, 286);
-            this.buttonStand.Name = "buttonStand";
-            this.buttonStand.Size = new System.Drawing.Size(75, 23);
-            this.buttonStand.TabIndex = 21;
-            this.buttonStand.Text = "Stand";
-            this.buttonStand.UseVisualStyleBackColor = true;
+            this.standButton.Location = new System.Drawing.Point(257, 286);
+            this.standButton.Name = "standButton";
+            this.standButton.Size = new System.Drawing.Size(75, 23);
+            this.standButton.TabIndex = 21;
+            this.standButton.Text = "Stand";
+            this.standButton.UseVisualStyleBackColor = true;
             // 
             // hitMeButton
             // 
@@ -125,7 +125,7 @@
             this.hitMeButton.Name = "hitMeButton";
             this.hitMeButton.Size = new System.Drawing.Size(75, 23);
             this.hitMeButton.TabIndex = 20;
-            this.hitMeButton.Text = "Deal";
+            this.hitMeButton.Text = "Hit";
             this.hitMeButton.UseVisualStyleBackColor = true;
             // 
             // dealButton
@@ -136,6 +136,7 @@
             this.dealButton.TabIndex = 19;
             this.dealButton.Text = "Start";
             this.dealButton.UseVisualStyleBackColor = true;
+            this.dealButton.Click += new System.EventHandler(this.dealButton_Click);
             // 
             // pictureBoxPlayer3
             // 
@@ -216,7 +217,7 @@
             this.Controls.Add(this.pictureBoxDealer2);
             this.Controls.Add(this.pictureBoxPlayer2);
             this.Controls.Add(this.pictureBoxPlayer1);
-            this.Controls.Add(this.buttonStand);
+            this.Controls.Add(this.standButton);
             this.Controls.Add(this.hitMeButton);
             this.Controls.Add(this.dealButton);
             this.DoubleBuffered = true;
@@ -225,6 +226,7 @@
             this.MinimumSize = new System.Drawing.Size(660, 400);
             this.Name = "Form1";
             this.Text = "Blackjack";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).EndInit();
@@ -248,7 +250,7 @@
         private System.Windows.Forms.PictureBox pictureBoxDealer2;
         private System.Windows.Forms.PictureBox pictureBoxPlayer2;
         private System.Windows.Forms.PictureBox pictureBoxPlayer1;
-        private System.Windows.Forms.Button buttonStand;
+        private System.Windows.Forms.Button standButton;
         private System.Windows.Forms.Button hitMeButton;
         private System.Windows.Forms.Button dealButton;
         private System.Windows.Forms.PictureBox pictureBoxPlayer3;
