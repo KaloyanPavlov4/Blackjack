@@ -27,6 +27,7 @@ namespace Blackjack
         {
             singleDeck = (CardNames[])Enum.GetValues(typeof(CardNames));
             fullDeck = singleDeck.Concat(singleDeck).ToList().Select(card => new Card(card)).ToList();
+            Shuffle(fullDeck);
             player = new Player();
             dealer = new Player();
             playerCards = new List<PictureBox> { pictureBoxPlayer1, pictureBoxPlayer2, pictureBoxPlayer3, pictureBoxPlayer4, pictureBoxPlayer5 };
@@ -38,6 +39,8 @@ namespace Blackjack
         private void dealButton_Click(object sender, EventArgs e)
         {
             dealButton.Enabled = false;
+            hitMeButton.Enabled = true;
+            standButton.Enabled = true;
             Hit(dealer);
             Hit(dealer);
             dealerCards[0].Image = Image.FromFile(resourceFolderPath + dealer.Hand[0].NameOfCard + ".png");
@@ -49,14 +52,13 @@ namespace Blackjack
             {
                 if(GetScore(player) == 21)
                 {
-                    //Implement draw
+                    draw();
                 }else
                 {
                     dealerWin();
                 }
             }else if(GetScore(player) == 21)
             {
-                dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
                 playerWin();
             }
         }
@@ -108,18 +110,43 @@ namespace Blackjack
 
         private void dealerWin()
         {
+            dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
             hitMeButton.Enabled = false;
             standButton.Enabled = false;
             dealButton.Enabled = true;
+            result.Visible = true;
             result.Text = "You lose!";
         }
 
         private void playerWin()
         {
+            dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
             hitMeButton.Enabled = false;
             standButton.Enabled = false;
             dealButton.Enabled = true;
+            result.Visible = true;
             result.Text = "You win!";
+        }
+
+        private void draw()
+        {
+            dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
+            hitMeButton.Enabled = false;
+            standButton.Enabled = false;
+            dealButton.Enabled = true;
+            result.Visible = true;
+            result.Text = "Draw!";
+
+        }
+
+        private void resetGame()
+        {
+            if(nextCard > 60)
+            {
+                Shuffle(fullDeck);
+                nextCard = 0;
+            }
+
         }
 
         private void Shuffle(List<Card> list)
@@ -134,6 +161,19 @@ namespace Blackjack
                 (list[n], list[k]) = (list[k], list[n]);
             }
             nextCard = 0;
+        }
+
+        private void hitMeButton_Click(object sender, EventArgs e)
+        {
+            Hit(player);
+            playerCards[player.Hand.Count - 1].Image = Image.FromFile(resourceFolderPath + player.Hand[player.Hand.Count - 1].NameOfCard + ".png");
+            playerCards[player.Hand.Count - 1].Visible = true;
+
+            if (HasBusted(player)) {
+                dealerWin();
+                return;
+             }
+            if (player.Hand.Count == 5) playerWin();
         }
     }
 }

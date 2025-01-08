@@ -44,6 +44,7 @@
             this.pictureBoxDealer4 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDealer3 = new System.Windows.Forms.PictureBox();
             this.result = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -128,6 +129,7 @@
             this.hitMeButton.TabIndex = 20;
             this.hitMeButton.Text = "Hit";
             this.hitMeButton.UseVisualStyleBackColor = true;
+            this.hitMeButton.Click += new System.EventHandler(this.hitMeButton_Click);
             // 
             // dealButton
             // 
@@ -212,6 +214,15 @@
             this.result.Text = "label3";
             this.result.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(110, 220);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 35;
+            this.label3.Text = "Score: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +230,7 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(644, 361);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.result);
             this.Controls.Add(this.pictureBoxDealer5);
             this.Controls.Add(this.pictureBoxDealer4);
@@ -275,6 +287,7 @@
         private System.Windows.Forms.PictureBox pictureBoxDealer3;
         private System.Windows.Forms.PictureBox pictureBoxPlayer4;
         private System.Windows.Forms.Label result;
+        private System.Windows.Forms.Label label3;
     }
 }
 
