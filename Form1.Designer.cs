@@ -43,6 +43,7 @@
             this.pictureBoxDealer5 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDealer4 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDealer3 = new System.Windows.Forms.PictureBox();
+            this.result = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -198,6 +199,19 @@
             this.pictureBoxDealer3.TabStop = false;
             this.pictureBoxDealer3.Visible = false;
             // 
+            // result
+            // 
+            this.result.AutoSize = true;
+            this.result.BackColor = System.Drawing.Color.Transparent;
+            this.result.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.result.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.result.Location = new System.Drawing.Point(381, 284);
+            this.result.Name = "result";
+            this.result.Size = new System.Drawing.Size(56, 23);
+            this.result.TabIndex = 34;
+            this.result.Text = "label3";
+            this.result.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,6 +219,7 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(644, 361);
+            this.Controls.Add(this.result);
             this.Controls.Add(this.pictureBoxDealer5);
             this.Controls.Add(this.pictureBoxDealer4);
             this.Controls.Add(this.pictureBoxDealer3);
@@ -259,6 +274,7 @@
         private System.Windows.Forms.PictureBox pictureBoxDealer4;
         private System.Windows.Forms.PictureBox pictureBoxDealer3;
         private System.Windows.Forms.PictureBox pictureBoxPlayer4;
+        private System.Windows.Forms.Label result;
     }
 }
 
