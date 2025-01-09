@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pictureBoxDealer1 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelDealer = new System.Windows.Forms.Label();
+            this.labelPlayer = new System.Windows.Forms.Label();
             this.pictureBoxDealer2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlayer2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlayer1 = new System.Windows.Forms.PictureBox();
@@ -44,7 +44,8 @@
             this.pictureBoxDealer4 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDealer3 = new System.Windows.Forms.PictureBox();
             this.result = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelPlayerScore = new System.Windows.Forms.Label();
+            this.labelDealerScore = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -67,23 +68,29 @@
             this.pictureBoxDealer1.TabIndex = 27;
             this.pictureBoxDealer1.TabStop = false;
             // 
-            // label2
+            // labelDealer
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(105, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "Dealer";
+            this.labelDealer.AutoSize = true;
+            this.labelDealer.BackColor = System.Drawing.Color.Transparent;
+            this.labelDealer.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDealer.ForeColor = System.Drawing.Color.White;
+            this.labelDealer.Location = new System.Drawing.Point(89, 63);
+            this.labelDealer.Name = "labelDealer";
+            this.labelDealer.Size = new System.Drawing.Size(55, 21);
+            this.labelDealer.TabIndex = 26;
+            this.labelDealer.Text = "Dealer";
             // 
-            // label1
+            // labelPlayer
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 195);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "Player";
+            this.labelPlayer.AutoSize = true;
+            this.labelPlayer.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer.ForeColor = System.Drawing.Color.White;
+            this.labelPlayer.Location = new System.Drawing.Point(90, 172);
+            this.labelPlayer.Name = "labelPlayer";
+            this.labelPlayer.Size = new System.Drawing.Size(53, 21);
+            this.labelPlayer.TabIndex = 25;
+            this.labelPlayer.Text = "Player";
             // 
             // pictureBoxDealer2
             // 
@@ -120,6 +127,7 @@
             this.standButton.TabIndex = 21;
             this.standButton.Text = "Stand";
             this.standButton.UseVisualStyleBackColor = true;
+            this.standButton.Click += new System.EventHandler(this.standButton_Click);
             // 
             // hitMeButton
             // 
@@ -207,21 +215,36 @@
             this.result.BackColor = System.Drawing.Color.Transparent;
             this.result.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.result.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.result.Location = new System.Drawing.Point(381, 284);
+            this.result.Location = new System.Drawing.Point(402, 286);
             this.result.Name = "result";
-            this.result.Size = new System.Drawing.Size(56, 23);
+            this.result.Size = new System.Drawing.Size(96, 23);
             this.result.TabIndex = 34;
-            this.result.Text = "label3";
+            this.result.Text = "ResultLable";
             this.result.Visible = false;
             // 
-            // label3
+            // labelPlayerScore
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(110, 220);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 35;
-            this.label3.Text = "Score: ";
+            this.labelPlayerScore.AutoSize = true;
+            this.labelPlayerScore.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayerScore.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayerScore.ForeColor = System.Drawing.Color.White;
+            this.labelPlayerScore.Location = new System.Drawing.Point(91, 193);
+            this.labelPlayerScore.Name = "labelPlayerScore";
+            this.labelPlayerScore.Size = new System.Drawing.Size(47, 16);
+            this.labelPlayerScore.TabIndex = 35;
+            this.labelPlayerScore.Text = "Score: ";
+            // 
+            // labelDealerScore
+            // 
+            this.labelDealerScore.AutoSize = true;
+            this.labelDealerScore.BackColor = System.Drawing.Color.Transparent;
+            this.labelDealerScore.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDealerScore.ForeColor = System.Drawing.Color.White;
+            this.labelDealerScore.Location = new System.Drawing.Point(91, 84);
+            this.labelDealerScore.Name = "labelDealerScore";
+            this.labelDealerScore.Size = new System.Drawing.Size(47, 16);
+            this.labelDealerScore.TabIndex = 36;
+            this.labelDealerScore.Text = "Score: ";
             // 
             // Form1
             // 
@@ -230,7 +253,8 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(644, 361);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelDealerScore);
+            this.Controls.Add(this.labelPlayerScore);
             this.Controls.Add(this.result);
             this.Controls.Add(this.pictureBoxDealer5);
             this.Controls.Add(this.pictureBoxDealer4);
@@ -239,8 +263,8 @@
             this.Controls.Add(this.pictureBoxPlayer4);
             this.Controls.Add(this.pictureBoxPlayer3);
             this.Controls.Add(this.pictureBoxDealer1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelDealer);
+            this.Controls.Add(this.labelPlayer);
             this.Controls.Add(this.pictureBoxDealer2);
             this.Controls.Add(this.pictureBoxPlayer2);
             this.Controls.Add(this.pictureBoxPlayer1);
@@ -272,8 +296,8 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxDealer1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelDealer;
+        private System.Windows.Forms.Label labelPlayer;
         private System.Windows.Forms.PictureBox pictureBoxDealer2;
         private System.Windows.Forms.PictureBox pictureBoxPlayer2;
         private System.Windows.Forms.PictureBox pictureBoxPlayer1;
@@ -287,7 +311,8 @@
         private System.Windows.Forms.PictureBox pictureBoxDealer3;
         private System.Windows.Forms.PictureBox pictureBoxPlayer4;
         private System.Windows.Forms.Label result;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelPlayerScore;
+        private System.Windows.Forms.Label labelDealerScore;
     }
 }
 
