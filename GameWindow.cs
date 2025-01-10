@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Blackjack
 {
-    public partial class Form1 : Form
+    public partial class GameWindow : Form
     {
         private string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
         private CardNames[] singleDeck;
@@ -19,7 +19,7 @@ namespace Blackjack
         private List<PictureBox> dealerCards;
         private bool handIsOver = false;
 
-        public Form1()
+        public GameWindow()
         {
             InitializeComponent();
         }
@@ -168,11 +168,17 @@ namespace Blackjack
             {
                 playerWin();
             }
+            else if (GetScore(dealer) == GetScore(player))
+            {
+                draw();
+            }
             else if (GetScore(dealer) > GetScore(player))
             {
                 dealerWin();
             }
-            else draw();
+            else playerWin();
+           
+                
         }
 
         private void Shuffle(List<Card> list)
@@ -216,5 +222,9 @@ namespace Blackjack
             checkResult();
         }
 
+        private void Game_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

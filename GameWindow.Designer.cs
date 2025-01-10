@@ -1,6 +1,6 @@
 ﻿namespace Blackjack
 {
-    partial class Form1
+    partial class GameWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -246,13 +246,13 @@
             this.labelDealerScore.TabIndex = 36;
             this.labelDealerScore.Text = "Score: ";
             // 
-            // Form1
+            // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(644, 361);
+            this.ClientSize = new System.Drawing.Size(700, 500);
             this.Controls.Add(this.labelDealerScore);
             this.Controls.Add(this.labelPlayerScore);
             this.Controls.Add(this.result);
@@ -272,11 +272,13 @@
             this.Controls.Add(this.hitMeButton);
             this.Controls.Add(this.dealButton);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(660, 400);
-            this.MinimumSize = new System.Drawing.Size(660, 400);
-            this.Name = "Form1";
+            this.MaximumSize = new System.Drawing.Size(700, 500);
+            this.MinimumSize = new System.Drawing.Size(700, 500);
+            this.Name = "GameWindow";
             this.Text = "Blackjack";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Game_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).EndInit();
