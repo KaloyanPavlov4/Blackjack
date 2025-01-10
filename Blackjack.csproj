@@ -133,9 +133,6 @@
     <None Include="Resources\buttonBackNormal1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\toggleButton.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\toggleButtonLeft.png" />
   </ItemGroup>
   <ItemGroup>
