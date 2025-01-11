@@ -46,6 +46,8 @@
             this.result = new System.Windows.Forms.Label();
             this.labelPlayerScore = new System.Windows.Forms.Label();
             this.labelDealerScore = new System.Windows.Forms.Label();
+            this.labelLoggedinUser = new System.Windows.Forms.Label();
+            this.labelBalance = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -246,6 +248,29 @@
             this.labelDealerScore.TabIndex = 36;
             this.labelDealerScore.Text = "Score: ";
             // 
+            // labelLoggedinUser
+            // 
+            this.labelLoggedinUser.AutoSize = true;
+            this.labelLoggedinUser.BackColor = System.Drawing.Color.Transparent;
+            this.labelLoggedinUser.ForeColor = System.Drawing.Color.Silver;
+            this.labelLoggedinUser.Location = new System.Drawing.Point(9, 9);
+            this.labelLoggedinUser.Name = "labelLoggedinUser";
+            this.labelLoggedinUser.Size = new System.Drawing.Size(95, 13);
+            this.labelLoggedinUser.TabIndex = 37;
+            this.labelLoggedinUser.Text = "labelLoggedinUser";
+            // 
+            // labelBalance
+            // 
+            this.labelBalance.AutoSize = true;
+            this.labelBalance.BackColor = System.Drawing.Color.Transparent;
+            this.labelBalance.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBalance.ForeColor = System.Drawing.Color.SpringGreen;
+            this.labelBalance.Location = new System.Drawing.Point(157, 347);
+            this.labelBalance.Name = "labelBalance";
+            this.labelBalance.Size = new System.Drawing.Size(146, 35);
+            this.labelBalance.TabIndex = 38;
+            this.labelBalance.Text = "Balance: $";
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,6 +278,8 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(700, 500);
+            this.Controls.Add(this.labelBalance);
+            this.Controls.Add(this.labelLoggedinUser);
             this.Controls.Add(this.labelDealerScore);
             this.Controls.Add(this.labelPlayerScore);
             this.Controls.Add(this.result);
@@ -315,6 +342,8 @@
         private System.Windows.Forms.Label result;
         private System.Windows.Forms.Label labelPlayerScore;
         private System.Windows.Forms.Label labelDealerScore;
+        private System.Windows.Forms.Label labelLoggedinUser;
+        private System.Windows.Forms.Label labelBalance;
     }
 }
 

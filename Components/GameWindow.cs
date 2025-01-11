@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,6 +20,9 @@ namespace Blackjack
         private List<PictureBox> playerCards;
         private List<PictureBox> dealerCards;
         private bool handIsOver = false;
+        private bool loggedIn = MenuWindow.loggedIn;
+        private string loggedUserName = MenuWindow.loggedUserName;
+        private int balance =0;
 
         public GameWindow()
         {
@@ -35,6 +40,38 @@ namespace Blackjack
             dealerCards = new List<PictureBox> { pictureBoxDealer1, pictureBoxDealer2, pictureBoxDealer3, pictureBoxDealer4, pictureBoxDealer5 };
             hitMeButton.Enabled = false;
             standButton.Enabled = false;
+            
+            SQLiteHelper dbHelper = new SQLiteHelper();
+            if (loggedIn)
+            {
+                labelLoggedinUser.Text = "Logged in: " + loggedUserName;
+                using (SQLiteConnection connection = dbHelper.GetConnection())
+                {
+                    try
+                    {
+                        connection.Open();
+                        string query = "Select balance FROM Users WHERE username='" + loggedUserName + "';";
+                        SQLiteCommand command = new SQLiteCommand(query, connection);
+
+                        SQLiteDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            balance = reader.GetInt32(0);
+                        }
+                        labelBalance.Text = "Balace: $" + balance;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        dbHelper.CloseConnection(connection);
+                    }
+                }
+            }
+
         }
 
         private void dealButton_Click(object sender, EventArgs e)

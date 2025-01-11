@@ -13,16 +13,29 @@ namespace Blackjack
 {
     public partial class MenuWindow : Form
     {
+        public static bool loggedIn;
         private string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
+        public static PictureBox loginButton;
+        public static Label labelLoggedUser;
+        public static string loggedUserName;
 
         public MenuWindow()
         {
             InitializeComponent();
+            loginButton = pictureBoxLoginButton;
+            labelLoggedUser = labelLoggedinUser;
+            if (loggedIn == false)
+            {
+                labelLoggedUser.Text = "Not logged in";
+            }
         }
 
         private void Menu_Load(object sender, EventArgs e)
         {
-
+            if (loggedIn)
+            {
+                pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginDisabled.png");
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -61,13 +74,27 @@ namespace Blackjack
         private void pictureBoxLoginButton_MouseEnter(object sender, EventArgs e)
         {
             Image oldImage = pictureBoxLoginButton.Image;
-            pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginHover.png");
+            if (loggedIn == true)
+            {
+                pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginDisabled.png");
+            }
+            else
+            {
+                pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginHover.png");
+            }
             oldImage.Dispose();
         }
         private void pictureBoxLoginButton_MouseLeave(object sender, EventArgs e)
         {
             Image oldImage = pictureBoxLoginButton.Image;
-            pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
+            if (loggedIn == true)
+            {
+                pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginDisabled.png");
+            }
+            else
+            {
+                pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
+            }
             oldImage.Dispose();
         }
         private void pictureBoxRulesButton_Click(object sender, EventArgs e)
@@ -79,6 +106,15 @@ namespace Blackjack
             MainForm.MainPanel.Controls.Add(ruleWindow);
             ruleWindow.Show();
             this.Dispose();
+        }
+
+        private void pictureBoxLoginButton_Click(object sender, EventArgs e)
+        {
+            if (loggedIn == false)
+            {
+                LoginForm loginFormWindow = new LoginForm();
+                loginFormWindow.Show();
+            }
         }
     }
 }

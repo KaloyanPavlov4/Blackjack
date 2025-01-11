@@ -32,6 +32,7 @@
             this.pictureBoxMenuTitle = new System.Windows.Forms.PictureBox();
             this.pictureBoxRulesButton = new System.Windows.Forms.PictureBox();
             this.pictureBoxLoginButton = new System.Windows.Forms.PictureBox();
+            this.labelLoggedinUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMenuTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRulesButton)).BeginInit();
@@ -87,8 +88,20 @@
             this.pictureBoxLoginButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLoginButton.TabIndex = 3;
             this.pictureBoxLoginButton.TabStop = false;
+            this.pictureBoxLoginButton.Click += new System.EventHandler(this.pictureBoxLoginButton_Click);
             this.pictureBoxLoginButton.MouseEnter += new System.EventHandler(this.pictureBoxLoginButton_MouseEnter);
             this.pictureBoxLoginButton.MouseLeave += new System.EventHandler(this.pictureBoxLoginButton_MouseLeave);
+            // 
+            // labelLoggedinUser
+            // 
+            this.labelLoggedinUser.AutoSize = true;
+            this.labelLoggedinUser.BackColor = System.Drawing.Color.Transparent;
+            this.labelLoggedinUser.ForeColor = System.Drawing.Color.Silver;
+            this.labelLoggedinUser.Location = new System.Drawing.Point(9, 9);
+            this.labelLoggedinUser.Name = "labelLoggedinUser";
+            this.labelLoggedinUser.Size = new System.Drawing.Size(95, 13);
+            this.labelLoggedinUser.TabIndex = 4;
+            this.labelLoggedinUser.Text = "labelLoggedinUser";
             // 
             // MenuWindow
             // 
@@ -97,6 +110,7 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(700, 500);
+            this.Controls.Add(this.labelLoggedinUser);
             this.Controls.Add(this.pictureBoxLoginButton);
             this.Controls.Add(this.pictureBoxRulesButton);
             this.Controls.Add(this.pictureBoxMenuTitle);
@@ -114,6 +128,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRulesButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoginButton)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -123,5 +138,6 @@
         private System.Windows.Forms.PictureBox pictureBoxMenuTitle;
         private System.Windows.Forms.PictureBox pictureBoxRulesButton;
         private System.Windows.Forms.PictureBox pictureBoxLoginButton;
+        private System.Windows.Forms.Label labelLoggedinUser;
     }
 }

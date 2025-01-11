@@ -17,6 +17,7 @@ namespace Blackjack
         {
             InitializeComponent();
             MainPanel = panel1;
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
