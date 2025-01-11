@@ -18,6 +18,7 @@ namespace Blackjack
         private string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
         SQLiteHelper dbHelper = new SQLiteHelper();
         string username = string.Empty;
+        bool isChecked = false;
 
         public LoginForm()
         {
@@ -106,6 +107,24 @@ namespace Blackjack
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButtonRegisterToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            isChecked = radioButtonRegisterToggle.Checked;
+        }
+
+        private void radioButtonRegisterToggle_Click(object sender, EventArgs e)
+        {
+            if (radioButtonRegisterToggle.Checked && !isChecked)
+            {
+                radioButtonRegisterToggle.Checked = false;
+            }
+            else
+            {
+                radioButtonRegisterToggle.Checked = true;
+                isChecked = false;
+            }
         }
     }
 }

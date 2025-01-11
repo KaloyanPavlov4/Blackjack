@@ -22,7 +22,8 @@ namespace Blackjack
         private bool handIsOver = false;
         private bool loggedIn = MenuWindow.loggedIn;
         private string loggedUserName = MenuWindow.loggedUserName;
-        private int balance =0;
+        private int balance = 500;
+        private int bet;
 
         public GameWindow()
         {
@@ -42,57 +43,62 @@ namespace Blackjack
             standButton.Enabled = false;
             
             SQLiteHelper dbHelper = new SQLiteHelper();
-            if (loggedIn)
+            if (!loggedIn)
+            {
+                labelLoggedinUser.Text = "Not loggedin: Guest mode";
+                labelBalance.Text = "Balace: $" + balance;
+            }
+            else 
             {
                 labelLoggedinUser.Text = "Logged in: " + loggedUserName;
-                using (SQLiteConnection connection = dbHelper.GetConnection())
-                {
-                    try
-                    {
-                        connection.Open();
-                        string query = "Select balance FROM Users WHERE username='" + loggedUserName + "';";
-                        SQLiteCommand command = new SQLiteCommand(query, connection);
-
-                        SQLiteDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            balance = reader.GetInt32(0);
-                        }
-                        labelBalance.Text = "Balace: $" + balance;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        dbHelper.CloseConnection(connection);
-                    }
-                }
+                balance = GetBalance();
+                labelBalance.Text = "Balace: $" + balance;
             }
-
         }
 
         private void dealButton_Click(object sender, EventArgs e)
         {
-            if (handIsOver)
+            if (textBoxBetAmount.Text.Length == 0)
             {
-                player.clearHand();
-                dealer.clearHand();
-                result.Visible = false;
-                for (int i = 2; i <= dealerCards.Count - 1; i++)
+                errorProvider1.SetError(textBoxBetAmount, "Field cannot be empty");
+            }
+            else
+            {
+                if (Convert.ToInt32(textBoxBetAmount.Text) > balance)
                 {
-                    dealerCards[i].Visible = false;
-                    playerCards[i].Visible = false;
+                    errorProvider1.SetError(textBoxBetAmount, "Not enough balace");
+                }
+                else
+                {
+                    bet = Convert.ToInt32(textBoxBetAmount.Text);
+                    if (loggedIn)
+                    {
+                        UpdateBalnce(bet * -1);
+                        balance = GetBalance();
+                    }
+                    else balance -= bet;
+                    errorProvider1.Clear();
+                    textBoxBetAmount.ReadOnly = true;
+                    if (handIsOver)
+                    {
+                        player.clearHand();
+                        dealer.clearHand();
+                        result.Visible = false;
+                        for (int i = 2; i <= dealerCards.Count - 1; i++)
+                        {
+                            dealerCards[i].Visible = false;
+                            playerCards[i].Visible = false;
+                        }
+                    }
+                    if (nextCard > 65)
+                    {
+                        Shuffle(fullDeck);
+                        nextCard = 0;
+                    }
+                    newHandDraw();
+                    labelBalance.Text = "Balace: $" + balance;
                 }
             }
-            if (nextCard > 65)
-            {
-                Shuffle(fullDeck);
-                nextCard = 0;
-            }
-            newHandDraw();
         }
 
         private void newHandDraw()
@@ -171,8 +177,12 @@ namespace Blackjack
             standButton.Enabled = false;
             dealButton.Enabled = true;
             result.Visible = true;
-            result.Text = "You lose!";
+            result.Text = "You lose! -$" + textBoxBetAmount.Text;
             handIsOver = true;
+            textBoxBetAmount.ReadOnly = false;
+            textBoxBetAmount.Text = "";
+            labelBalance.Text = "Balace: $" + balance;
+
         }
 
         private void playerWin()
@@ -183,8 +193,23 @@ namespace Blackjack
             standButton.Enabled = false;
             dealButton.Enabled = true;
             result.Visible = true;
-            result.Text = "You win!";
+            result.Text = "You win! +$" + Convert.ToInt32(textBoxBetAmount.Text);
+            
             handIsOver = true;
+            textBoxBetAmount.ReadOnly = false;
+            textBoxBetAmount.Text = "";
+            if (loggedIn)
+            {
+                UpdateBalnce(bet*2);
+                balance = GetBalance();
+            }
+            else
+            {
+                balance = balance + bet * 2;
+            }
+            labelBalance.Text = "Balace: $" + balance;
+
+
         }
 
         private void draw()
@@ -197,6 +222,19 @@ namespace Blackjack
             result.Visible = true;
             result.Text = "Draw!";
             handIsOver = true;
+            textBoxBetAmount.ReadOnly = false;
+            textBoxBetAmount.Text = "";
+            labelBalance.Text = "Balace: $" + balance;
+            if (loggedIn)
+            {
+                UpdateBalnce(bet);
+                balance = GetBalance();
+            }
+            else
+            {
+                balance += bet;
+            }
+
         }
 
         private void checkResult()
@@ -262,6 +300,74 @@ namespace Blackjack
         private void Game_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void textBoxBetAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            
+        }
+
+        private int GetBalance()
+        {
+            SQLiteHelper dbHelper = new SQLiteHelper();
+            using (SQLiteConnection connection = dbHelper.GetConnection())
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT balance FROM Users WHERE username='" + loggedUserName + "';";
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        balance = reader.GetInt32(0);
+                    }
+                    labelBalance.Text = "Balace: $" + balance;
+                    return balance;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return -1;
+                }
+                finally
+                {
+                    dbHelper.CloseConnection(connection);
+                }
+            }
+        }
+
+        private void UpdateBalnce(int change)
+        {
+            balance = GetBalance();
+            int newBalance = balance + change;
+            SQLiteHelper dbHelper = new SQLiteHelper();
+            using (SQLiteConnection connection = dbHelper.GetConnection())
+            {
+                try
+                {
+                    dbHelper.OpenConnection(connection);
+                    string query = "UPDATE Users SET balance='" + newBalance + "' WHERE username='" + loggedUserName + "';";
+                    SQLiteCommand command = new SQLiteCommand(connection);
+                    command.CommandText = query;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    dbHelper.CloseConnection(connection);
+                }
+            }
+            
         }
     }
 }

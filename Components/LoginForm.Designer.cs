@@ -112,6 +112,8 @@
             this.radioButtonRegisterToggle.TabStop = true;
             this.radioButtonRegisterToggle.Text = "Make a new account";
             this.radioButtonRegisterToggle.UseVisualStyleBackColor = false;
+            this.radioButtonRegisterToggle.CheckedChanged += new System.EventHandler(this.radioButtonRegisterToggle_CheckedChanged);
+            this.radioButtonRegisterToggle.Click += new System.EventHandler(this.radioButtonRegisterToggle_Click);
             // 
             // errorProvider1
             // 

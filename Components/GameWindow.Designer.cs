@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBoxDealer1 = new System.Windows.Forms.PictureBox();
             this.labelDealer = new System.Windows.Forms.Label();
             this.labelPlayer = new System.Windows.Forms.Label();
@@ -48,6 +49,9 @@
             this.labelDealerScore = new System.Windows.Forms.Label();
             this.labelLoggedinUser = new System.Windows.Forms.Label();
             this.labelBalance = new System.Windows.Forms.Label();
+            this.textBoxBetAmount = new System.Windows.Forms.TextBox();
+            this.labelBetAmount = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -58,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxDealer1
@@ -123,7 +128,7 @@
             // 
             // standButton
             // 
-            this.standButton.Location = new System.Drawing.Point(257, 286);
+            this.standButton.Location = new System.Drawing.Point(257, 310);
             this.standButton.Name = "standButton";
             this.standButton.Size = new System.Drawing.Size(75, 23);
             this.standButton.TabIndex = 21;
@@ -133,7 +138,7 @@
             // 
             // hitMeButton
             // 
-            this.hitMeButton.Location = new System.Drawing.Point(163, 286);
+            this.hitMeButton.Location = new System.Drawing.Point(163, 310);
             this.hitMeButton.Name = "hitMeButton";
             this.hitMeButton.Size = new System.Drawing.Size(75, 23);
             this.hitMeButton.TabIndex = 20;
@@ -143,11 +148,11 @@
             // 
             // dealButton
             // 
-            this.dealButton.Location = new System.Drawing.Point(14, 247);
+            this.dealButton.Location = new System.Drawing.Point(29, 312);
             this.dealButton.Name = "dealButton";
             this.dealButton.Size = new System.Drawing.Size(75, 23);
             this.dealButton.TabIndex = 19;
-            this.dealButton.Text = "Start";
+            this.dealButton.Text = "Bet";
             this.dealButton.UseVisualStyleBackColor = true;
             this.dealButton.Click += new System.EventHandler(this.dealButton_Click);
             // 
@@ -217,7 +222,7 @@
             this.result.BackColor = System.Drawing.Color.Transparent;
             this.result.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.result.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.result.Location = new System.Drawing.Point(402, 286);
+            this.result.Location = new System.Drawing.Point(402, 310);
             this.result.Name = "result";
             this.result.Size = new System.Drawing.Size(96, 23);
             this.result.TabIndex = 34;
@@ -265,11 +270,35 @@
             this.labelBalance.BackColor = System.Drawing.Color.Transparent;
             this.labelBalance.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBalance.ForeColor = System.Drawing.Color.SpringGreen;
-            this.labelBalance.Location = new System.Drawing.Point(157, 347);
+            this.labelBalance.Location = new System.Drawing.Point(157, 371);
             this.labelBalance.Name = "labelBalance";
             this.labelBalance.Size = new System.Drawing.Size(146, 35);
             this.labelBalance.TabIndex = 38;
             this.labelBalance.Text = "Balance: $";
+            // 
+            // textBoxBetAmount
+            // 
+            this.textBoxBetAmount.Location = new System.Drawing.Point(29, 286);
+            this.textBoxBetAmount.Name = "textBoxBetAmount";
+            this.textBoxBetAmount.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBetAmount.TabIndex = 39;
+            this.textBoxBetAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBetAmount_KeyPress);
+            // 
+            // labelBetAmount
+            // 
+            this.labelBetAmount.AutoSize = true;
+            this.labelBetAmount.BackColor = System.Drawing.Color.Transparent;
+            this.labelBetAmount.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBetAmount.ForeColor = System.Drawing.Color.White;
+            this.labelBetAmount.Location = new System.Drawing.Point(26, 269);
+            this.labelBetAmount.Name = "labelBetAmount";
+            this.labelBetAmount.Size = new System.Drawing.Size(71, 14);
+            this.labelBetAmount.TabIndex = 40;
+            this.labelBetAmount.Text = "Bet Amount:";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // GameWindow
             // 
@@ -278,6 +307,8 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(700, 500);
+            this.Controls.Add(this.labelBetAmount);
+            this.Controls.Add(this.textBoxBetAmount);
             this.Controls.Add(this.labelBalance);
             this.Controls.Add(this.labelLoggedinUser);
             this.Controls.Add(this.labelDealerScore);
@@ -317,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,6 +376,9 @@
         private System.Windows.Forms.Label labelDealerScore;
         private System.Windows.Forms.Label labelLoggedinUser;
         private System.Windows.Forms.Label labelBalance;
+        private System.Windows.Forms.TextBox textBoxBetAmount;
+        private System.Windows.Forms.Label labelBetAmount;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 
