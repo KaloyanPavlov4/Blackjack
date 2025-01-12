@@ -281,9 +281,12 @@
             // textBoxBetAmount
             // 
             this.textBoxBetAmount.Location = new System.Drawing.Point(29, 286);
+            this.textBoxBetAmount.MaxLength = 9;
             this.textBoxBetAmount.Name = "textBoxBetAmount";
+            this.textBoxBetAmount.ShortcutsEnabled = false;
             this.textBoxBetAmount.Size = new System.Drawing.Size(100, 20);
             this.textBoxBetAmount.TabIndex = 39;
+            this.textBoxBetAmount.WordWrap = false;
             this.textBoxBetAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBetAmount_KeyPress);
             // 
             // labelBetAmount

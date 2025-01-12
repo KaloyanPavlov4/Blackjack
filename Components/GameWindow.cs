@@ -227,7 +227,7 @@ namespace Blackjack
 
         private void dealerWin()
         {
-            endGame("You lose! -$" + textBoxBetAmount.Text);
+            endGame("You lose! -$" + bet);
             //При баланс от 0, дава 50 долара, за да може потребителят да продължи да играе
             if (balance == 0)
             {
@@ -240,7 +240,7 @@ namespace Blackjack
         private void playerWin()
         {
             UpdateBalance(bet * 2);
-            endGame("You win! +$" + Convert.ToInt32(textBoxBetAmount.Text));
+            endGame("You win! +$" + bet);
         }
 
         private void draw()
@@ -372,8 +372,13 @@ namespace Blackjack
         }
 
         //Методът подсигурява че в кутията за залог може да се въвеждат само числа
+        // и че първото число не е нула
         private void textBoxBetAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (textBoxBetAmount.Text.Length == 0)
+            {
+                if (e.KeyChar == '0') e.Handled = true;
+            }
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
