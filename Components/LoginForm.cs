@@ -34,7 +34,7 @@ namespace Blackjack
                                 "VALUES (@username, @password, 500)";
 
                             SQLiteCommand command = new SQLiteCommand(query, connection);
-                            command.Parameters.AddWithValue("@username", textBoxUsername.Text);
+                            command.Parameters.AddWithValue("@username", textBoxUsername.Text.ToLower());
                             command.Parameters.AddWithValue("@password", textBoxPassword.Text);
 
                             command.ExecuteNonQuery();
@@ -48,7 +48,7 @@ namespace Blackjack
                         CheckInputSize();
                         using (SQLiteCommand command = new SQLiteCommand(connection))
                         {
-                            string query = "SELECT COUNT(*) FROM Users WHERE username='" + textBoxUsername.Text + "' AND password='" + textBoxPassword.Text + "';";
+                            string query = "SELECT COUNT(*) FROM Users WHERE username='" + textBoxUsername.Text.ToLower() + "' AND password='" + textBoxPassword.Text + "';";
                             command.CommandText = query;
                             object result = command.ExecuteScalar();
                             int resultCount = Convert.ToInt32(result);
@@ -64,7 +64,7 @@ namespace Blackjack
                 }
                 catch (Exception ex)
                 {
-                    if (ex.Message == "constraint failed\r\nUNIQUE constraint failed: Users.username\r\n")
+                    if (ex.GetHashCode().ToString() == "33420276")
                     {
                         MessageBox.Show("User already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
