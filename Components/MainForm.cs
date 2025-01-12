@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Blackjack
@@ -13,6 +7,7 @@ namespace Blackjack
     public partial class MainForm : Form
     {
         public static Panel MainPanel;
+        public static string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
         public MainForm()
         {
             InitializeComponent();

@@ -46,13 +46,13 @@ namespace Blackjack
             if (!loggedIn)
             {
                 labelLoggedinUser.Text = "Not loggedin: Guest mode";
-                labelBalance.Text = "Balace: $" + balance;
+                labelBalance.Text = "Balance: $" + balance;
             }
             else 
             {
                 labelLoggedinUser.Text = "Logged in: " + loggedUserName;
                 balance = GetBalance();
-                labelBalance.Text = "Balace: $" + balance;
+                labelBalance.Text = "Balance: $" + balance;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Blackjack
                     backButton.Enabled = false;
                     if (loggedIn)
                     {
-                        UpdateBalnce(bet * -1);
+                        UpdateBalance(bet * -1);
                         balance = GetBalance();
                     }
                     else balance -= bet;
@@ -97,7 +97,7 @@ namespace Blackjack
                         nextCard = 0;
                     }
                     newHandDraw();
-                    labelBalance.Text = "Balace: $" + balance;
+                    labelBalance.Text = "Balance: $" + balance;
                 }
             }
         }
@@ -163,11 +163,7 @@ namespace Blackjack
 
         private bool HasBusted(Player p)
         {
-            if (GetScore(p) > 21)
-            {
-                return true;
-            }
-            return false;
+            return GetScore(p) > 21;
         }
 
         private void dealerWin()
@@ -182,8 +178,18 @@ namespace Blackjack
             handIsOver = true;
             textBoxBetAmount.ReadOnly = false;
             textBoxBetAmount.Text = "";
-            labelBalance.Text = "Balace: $" + balance;
+            labelBalance.Text = "Balance: $" + balance;
             backButton.Enabled = true;
+            if(balance == 0)
+            {
+                MessageBox.Show("You suddenly remember you have 50 dollars in your back pocket!");
+                balance = 50;
+                labelBalance.Text = "Balance: $" + balance;
+                if (loggedIn)
+                {
+                    UpdateBalance(50);
+                }
+            }
         }
 
         private void playerWin()
@@ -201,14 +207,14 @@ namespace Blackjack
             textBoxBetAmount.Text = "";
             if (loggedIn)
             {
-                UpdateBalnce(bet*2);
+                UpdateBalance(bet*2);
                 balance = GetBalance();
             }
             else
             {
                 balance = balance + bet * 2;
             }
-            labelBalance.Text = "Balace: $" + balance;
+            labelBalance.Text = "Balance: $" + balance;
             backButton.Enabled = true;
 
         }
@@ -226,10 +232,10 @@ namespace Blackjack
             textBoxBetAmount.ReadOnly = false;
             textBoxBetAmount.Text = "";
             balance = balance + bet;
-            labelBalance.Text = "Balace: $" + balance;
+            labelBalance.Text = "Balance: $" + balance;
             if (loggedIn)
             {
-                UpdateBalnce(bet);
+                UpdateBalance(bet);
                 balance = GetBalance();
             }
             else
@@ -330,7 +336,7 @@ namespace Blackjack
                     {
                         balance = reader.GetInt32(0);
                     }
-                    labelBalance.Text = "Balace: $" + balance;
+                    labelBalance.Text = "Balance: $" + balance;
                     return balance;
                 }
                 catch (Exception ex)
@@ -345,7 +351,7 @@ namespace Blackjack
             }
         }
 
-        private void UpdateBalnce(int change)
+        private void UpdateBalance(int change)
         {
             balance = GetBalance();
             int newBalance = balance + change;

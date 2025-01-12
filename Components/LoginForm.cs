@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SQLite;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace Blackjack
@@ -19,10 +11,12 @@ namespace Blackjack
         SQLiteHelper dbHelper = new SQLiteHelper();
         string username = string.Empty;
         bool isChecked = false;
+        MenuWindow menuWindow = null;
 
-        public LoginForm()
+        public LoginForm(MenuWindow menu)
         {
             InitializeComponent();
+            menuWindow = menu;
         }
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
@@ -44,14 +38,9 @@ namespace Blackjack
                             command.Parameters.AddWithValue("@password", textBoxPassword.Text);
 
                             command.ExecuteNonQuery();
-
-                            MenuWindow.loggedIn = true;
-                            username = textBoxUsername.Text;
-                            this.Close();
-                            MenuWindow.loginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginDisabled.png");
-                            MenuWindow.labelLoggedUser.Text = "Logged in: " + username;
-                            MenuWindow.loggedUserName = username;
-
+                        }else
+                        {
+                            return;
                         }
                     }
                     else
@@ -66,22 +55,24 @@ namespace Blackjack
                             if (resultCount == 0)
                             {
                                 MessageBox.Show("Wrong username or password", "!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                MenuWindow.loggedIn = true;
-                                username = textBoxUsername.Text;
-                                this.Close();
-                                MenuWindow.loginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginDisabled.png");
-                                MenuWindow.labelLoggedUser.Text = "Logged in: " + username;
-                                MenuWindow.loggedUserName = username;
+                                return;
                             }
                         }
                     }
+                    menuWindow.LogIn(textBoxUsername.Text);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (ex.Message == "constraint failed\r\nUNIQUE constraint failed: Users.username\r\n")
+                    {
+                        MessageBox.Show("User already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
                 finally
                 {
