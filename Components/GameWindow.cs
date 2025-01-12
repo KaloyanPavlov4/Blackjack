@@ -225,6 +225,7 @@ namespace Blackjack
             handIsOver = true;
             textBoxBetAmount.ReadOnly = false;
             textBoxBetAmount.Text = "";
+            balance = balance + bet;
             labelBalance.Text = "Balace: $" + balance;
             if (loggedIn)
             {
