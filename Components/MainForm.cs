@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,6 +24,13 @@ namespace Blackjack
             panel1.Controls.Clear();
             panel1.Controls.Add(menuForm);
             menuForm.Show();
+        }
+
+        public static void ChangePictureBoxImage(PictureBox pictureBox, string imageName)
+        {
+            Image oldImage = pictureBox.Image;
+            pictureBox.Image = Image.FromFile(resourceFolderPath + imageName + ".png");
+            oldImage.Dispose();
         }
     }
 }

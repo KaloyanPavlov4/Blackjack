@@ -52,7 +52,7 @@
             this.textBoxBetAmount = new System.Windows.Forms.TextBox();
             this.labelBetAmount = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.backButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -64,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.backButton)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxDealer1
@@ -259,7 +260,7 @@
             this.labelLoggedinUser.AutoSize = true;
             this.labelLoggedinUser.BackColor = System.Drawing.Color.Transparent;
             this.labelLoggedinUser.ForeColor = System.Drawing.Color.Silver;
-            this.labelLoggedinUser.Location = new System.Drawing.Point(2, 38);
+            this.labelLoggedinUser.Location = new System.Drawing.Point(2, 9);
             this.labelLoggedinUser.Name = "labelLoggedinUser";
             this.labelLoggedinUser.Size = new System.Drawing.Size(95, 13);
             this.labelLoggedinUser.TabIndex = 37;
@@ -303,13 +304,17 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(5, 12);
+            this.backButton.BackColor = System.Drawing.Color.Transparent;
+            this.backButton.Image = global::Blackjack.Properties.Resources.buttonBackNormal;
+            this.backButton.Location = new System.Drawing.Point(510, 371);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(75, 23);
+            this.backButton.Size = new System.Drawing.Size(143, 60);
+            this.backButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.backButton.TabIndex = 41;
-            this.backButton.Text = "Go back";
-            this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.TabStop = false;
+            this.backButton.Click += new System.EventHandler(this.pictureBoxBackButton_Click);
+            this.backButton.MouseEnter += new System.EventHandler(this.backButton_MouseEnter);
+            this.backButton.MouseLeave += new System.EventHandler(this.backButton_MouseLeave);
             // 
             // GameWindow
             // 
@@ -361,6 +366,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.backButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,7 +397,7 @@
         private System.Windows.Forms.TextBox textBoxBetAmount;
         private System.Windows.Forms.Label labelBetAmount;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.PictureBox backButton;
     }
 }
 

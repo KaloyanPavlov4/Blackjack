@@ -1,47 +1,18 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Blackjack
 {
     public partial class MenuWindow : Form
     {
+        private readonly string resourceFolderPath = MainForm.resourceFolderPath;
         public static bool loggedIn;
-        private string resourceFolderPath = MainForm.resourceFolderPath;
-        public static PictureBox loginButton;
         public static string loggedUserName;
 
         public MenuWindow()
         {
             InitializeComponent();
-            loginButton = pictureBoxLoginButton;
-        }
-
-        public void LogIn(string username)
-        {
-            loggedIn = true;
-            loggedUserName = username;
-            loginButton.Image = Image.FromFile(resourceFolderPath + "buttonLogoutNormal.png");
-            labelLoggedinUser.Text = "Logged in: " + username;
-
-            loginButton.MouseEnter += pictureBoxLogoutButton_MouseEnter;
-            loginButton.MouseEnter -= pictureBoxLoginButton_MouseEnter;
-            loginButton.MouseLeave += pictureBoxLogoutButton_MouseLeave;
-            loginButton.MouseLeave -= pictureBoxLoginButton_MouseLeave;
-        }
-
-        public void LogOut()
-        {
-            loggedIn = false;
-            loggedUserName = null;
-            loginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
-            labelLoggedinUser.Text = "Not logged in";
-
-            loginButton.MouseEnter -= pictureBoxLogoutButton_MouseEnter;
-            loginButton.MouseEnter += pictureBoxLoginButton_MouseEnter;
-            loginButton.MouseLeave -= pictureBoxLogoutButton_MouseLeave;
-            loginButton.MouseLeave += pictureBoxLoginButton_MouseLeave;
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -57,7 +28,33 @@ namespace Blackjack
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        public void LogIn(string username)
+        {
+            loggedIn = true;
+            loggedUserName = username;
+            pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLogoutNormal.png");
+            labelLoggedinUser.Text = "Logged in: " + username;
+
+            pictureBoxLoginButton.MouseEnter -= pictureBoxLoginButton_MouseEnter;
+            pictureBoxLoginButton.MouseEnter += pictureBoxLogoutButton_MouseEnter;
+            pictureBoxLoginButton.MouseLeave -= pictureBoxLoginButton_MouseLeave;
+            pictureBoxLoginButton.MouseLeave += pictureBoxLogoutButton_MouseLeave;
+        }
+
+        public void LogOut()
+        {
+            loggedIn = false;
+            loggedUserName = null;
+            pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
+            labelLoggedinUser.Text = "Not logged in";
+
+            pictureBoxLoginButton.MouseEnter -= pictureBoxLogoutButton_MouseEnter;
+            pictureBoxLoginButton.MouseEnter += pictureBoxLoginButton_MouseEnter;
+            pictureBoxLoginButton.MouseLeave -= pictureBoxLogoutButton_MouseLeave;
+            pictureBoxLoginButton.MouseLeave += pictureBoxLoginButton_MouseLeave;
+        }
+
+        private void pictureBoxPlayButton_Click(object sender, EventArgs e)
         {
             GameWindow gameWindow = new GameWindow();
             gameWindow.Dock = DockStyle.Fill;
@@ -65,48 +62,20 @@ namespace Blackjack
             MainForm.MainPanel.Controls.Clear();
             MainForm.MainPanel.Controls.Add(gameWindow);
             gameWindow.Show();
-        }
-        private void pictureBoxPlayButton_MouseEnter(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxPlayButton, "buttonPlayHover");
-        }
-        private void pictureBoxPlayButton_MouseLeave(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxPlayButton, "buttonPlayNormal");
-        }
-        private void pictureBoxRulesButton_MouseEnter(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxRulesButton, "buttonRulesHover");
-        }
-        private void pictureBoxRulesButton_MouseLeave(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxRulesButton, "buttonRulesNormal");
-        }
-        private void pictureBoxLoginButton_MouseEnter(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginHover");
+            Dispose();
         }
 
-        private void pictureBoxLoginButton_MouseLeave(object sender, EventArgs e)
+        private void pictureBoxLoginButton_Click(object sender, EventArgs e)
         {
-            ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginNormal");
-        }
-
-        private void pictureBoxLogoutButton_MouseEnter(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutHover");
-        }
-
-        private void pictureBoxLogoutButton_MouseLeave(object sender, EventArgs e)
-        {
-            ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutNormal");
-        }
-
-        public void ChangePictureBoxImage(PictureBox pictureBox, string imageName)
-        {
-            Image oldImage = pictureBox.Image;
-            pictureBox.Image = Image.FromFile(resourceFolderPath + imageName + ".png");
-            oldImage.Dispose();
+            if (loggedIn == false)
+            {
+                LoginForm loginFormWindow = new LoginForm(this);
+                loginFormWindow.Show();
+            }
+            else
+            {
+                LogOut();
+            }
         }
 
         private void pictureBoxRulesButton_Click(object sender, EventArgs e)
@@ -120,16 +89,40 @@ namespace Blackjack
             Dispose();
         }
 
-        private void pictureBoxLoginButton_Click(object sender, EventArgs e)
+        private void pictureBoxPlayButton_MouseEnter(object sender, EventArgs e)
         {
-            if (loggedIn == false)
-            {
-                LoginForm loginFormWindow = new LoginForm(this);
-                loginFormWindow.Show();
-            } else
-            {
-                LogOut();
-            }
+            MainForm.ChangePictureBoxImage(pictureBoxPlayButton, "buttonPlayHover");
+        }
+        private void pictureBoxPlayButton_MouseLeave(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxPlayButton, "buttonPlayNormal");
+        }
+        private void pictureBoxRulesButton_MouseEnter(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxRulesButton, "buttonRulesHover");
+        }
+        private void pictureBoxRulesButton_MouseLeave(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxRulesButton, "buttonRulesNormal");
+        }
+        private void pictureBoxLoginButton_MouseEnter(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginHover");
+        }
+
+        private void pictureBoxLoginButton_MouseLeave(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginNormal");
+        }
+
+        private void pictureBoxLogoutButton_MouseEnter(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutHover");
+        }
+
+        private void pictureBoxLogoutButton_MouseLeave(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutNormal");
         }
     }
 }

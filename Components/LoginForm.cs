@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Blackjack
 {
     public partial class LoginForm : Form
     {
-        private string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
-        SQLiteHelper dbHelper = new SQLiteHelper();
-        string username = string.Empty;
-        bool isChecked = false;
-        MenuWindow menuWindow = null;
+        private readonly SQLiteHelper dbHelper = new SQLiteHelper();
+        private bool isChecked = false;
+        private readonly MenuWindow menuWindow = null;
 
         public LoginForm(MenuWindow menu)
         {
             InitializeComponent();
             menuWindow = menu;
         }
+
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             using (SQLiteConnection connection = dbHelper.GetConnection())
@@ -34,11 +32,12 @@ namespace Blackjack
                                 "VALUES (@username, @password, 500)";
 
                             SQLiteCommand command = new SQLiteCommand(query, connection);
-                            command.Parameters.AddWithValue("@username", textBoxUsername.Text.ToLower());
+                            command.Parameters.AddWithValue("@username", textBoxUsername.Text);
                             command.Parameters.AddWithValue("@password", textBoxPassword.Text);
 
                             command.ExecuteNonQuery();
-                        }else
+                        }
+                        else
                         {
                             return;
                         }
@@ -48,7 +47,7 @@ namespace Blackjack
                         CheckInputSize();
                         using (SQLiteCommand command = new SQLiteCommand(connection))
                         {
-                            string query = "SELECT COUNT(*) FROM Users WHERE username='" + textBoxUsername.Text.ToLower() + "' AND password='" + textBoxPassword.Text + "';";
+                            string query = "SELECT COUNT(*) FROM Users WHERE username='" + textBoxUsername.Text + "' AND password='" + textBoxPassword.Text + "';";
                             command.CommandText = query;
                             object result = command.ExecuteScalar();
                             int resultCount = Convert.ToInt32(result);
@@ -60,7 +59,7 @@ namespace Blackjack
                         }
                     }
                     menuWindow.LogIn(textBoxUsername.Text);
-                    this.Close();
+                    Close();
                 }
                 catch (Exception ex)
                 {

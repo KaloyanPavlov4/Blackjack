@@ -49,7 +49,7 @@
             this.pictureBoxPlayButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPlayButton.TabIndex = 0;
             this.pictureBoxPlayButton.TabStop = false;
-            this.pictureBoxPlayButton.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBoxPlayButton.Click += new System.EventHandler(this.pictureBoxPlayButton_Click);
             this.pictureBoxPlayButton.MouseEnter += new System.EventHandler(this.pictureBoxPlayButton_MouseEnter);
             this.pictureBoxPlayButton.MouseLeave += new System.EventHandler(this.pictureBoxPlayButton_MouseLeave);
             // 

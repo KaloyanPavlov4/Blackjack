@@ -1,29 +1,18 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Blackjack
 {
     public partial class RulesWindow : Form
     {
-        string resourceFolderPath = MainForm.resourceFolderPath;
+        private readonly string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
+        private bool isChecked = false;
+
         public RulesWindow()
         {
             InitializeComponent();
-        }
-
-        private void pictureBoxBackButton_MouseLeave(object sender, EventArgs e)
-        {
-            Image oldImage = pictureBoxBackButton.Image;
-            pictureBoxBackButton.Image = Image.FromFile(resourceFolderPath + "buttonBackNormal.png");
-            oldImage.Dispose();
-        }
-
-        private void pictureBoxBackButton_MouseEnter(object sender, EventArgs e)
-        {
-            Image oldImage = pictureBoxBackButton.Image;
-            pictureBoxBackButton.Image = Image.FromFile(resourceFolderPath + "buttonBackHover.png");
-            oldImage.Dispose();
         }
 
         private void pictureBoxBackButton_Click(object sender, EventArgs e)
@@ -34,9 +23,9 @@ namespace Blackjack
             MainForm.MainPanel.Controls.Clear();
             MainForm.MainPanel.Controls.Add(menuWindow);
             menuWindow.Show();
-            this.Dispose();
+            Dispose();
         }
-        bool isChecked = false;
+
         private void radioButtonLanguageToggle_CheckedChanged(object sender, EventArgs e)
         {
             isChecked = radioButtonLanguageToggle.Checked;
@@ -63,6 +52,16 @@ namespace Blackjack
                 radioButtonLanguageToggle.BackgroundImage = rightToggle;
                 leftToggle.Dispose();
             }
+        }
+
+        private void pictureBoxBackButton_MouseLeave(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxBackButton, "buttonBackNormal");
+        }
+
+        private void pictureBoxBackButton_MouseEnter(object sender, EventArgs e)
+        {
+            MainForm.ChangePictureBoxImage(pictureBoxBackButton, "buttonBackHover");
         }
     }
 }
