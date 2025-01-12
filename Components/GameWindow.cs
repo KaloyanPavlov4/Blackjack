@@ -71,6 +71,7 @@ namespace Blackjack
                 else
                 {
                     bet = Convert.ToInt32(textBoxBetAmount.Text);
+                    backButton.Enabled = false;
                     if (loggedIn)
                     {
                         UpdateBalnce(bet * -1);
@@ -182,7 +183,7 @@ namespace Blackjack
             textBoxBetAmount.ReadOnly = false;
             textBoxBetAmount.Text = "";
             labelBalance.Text = "Balace: $" + balance;
-
+            backButton.Enabled = true;
         }
 
         private void playerWin()
@@ -208,7 +209,7 @@ namespace Blackjack
                 balance = balance + bet * 2;
             }
             labelBalance.Text = "Balace: $" + balance;
-
+            backButton.Enabled = true;
 
         }
 
@@ -234,7 +235,7 @@ namespace Blackjack
             {
                 balance += bet;
             }
-
+            backButton.Enabled = true;
         }
 
         private void checkResult()
@@ -368,6 +369,16 @@ namespace Blackjack
                 }
             }
             
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MenuWindow menuWindow = new MenuWindow();
+            menuWindow.Dock = DockStyle.Fill;
+            menuWindow.TopLevel = false;
+            MainForm.MainPanel.Controls.Clear();
+            MainForm.MainPanel.Controls.Add(menuWindow);
+            menuWindow.Show();
         }
     }
 }

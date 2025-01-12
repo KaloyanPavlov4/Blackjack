@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Blackjack
 {
@@ -27,6 +22,9 @@ namespace Blackjack
             if (loggedIn == false)
             {
                 labelLoggedUser.Text = "Not logged in";
+            } else
+            {
+                labelLoggedUser.Text = "Logged in: " + loggedUserName;
             }
         }
 
@@ -114,6 +112,12 @@ namespace Blackjack
             {
                 LoginForm loginFormWindow = new LoginForm();
                 loginFormWindow.Show();
+            } else
+            {
+                loggedIn = false;
+                loggedUserName = null;
+                loginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
+                labelLoggedUser.Text = "Not logged in";
             }
         }
     }

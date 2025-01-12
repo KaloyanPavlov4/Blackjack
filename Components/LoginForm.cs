@@ -104,11 +104,6 @@ namespace Blackjack
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void radioButtonRegisterToggle_CheckedChanged(object sender, EventArgs e)
         {
             isChecked = radioButtonRegisterToggle.Checked;

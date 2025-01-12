@@ -52,6 +52,7 @@
             this.textBoxBetAmount = new System.Windows.Forms.TextBox();
             this.labelBetAmount = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.backButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDealer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayer2)).BeginInit();
@@ -258,7 +259,7 @@
             this.labelLoggedinUser.AutoSize = true;
             this.labelLoggedinUser.BackColor = System.Drawing.Color.Transparent;
             this.labelLoggedinUser.ForeColor = System.Drawing.Color.Silver;
-            this.labelLoggedinUser.Location = new System.Drawing.Point(9, 9);
+            this.labelLoggedinUser.Location = new System.Drawing.Point(2, 38);
             this.labelLoggedinUser.Name = "labelLoggedinUser";
             this.labelLoggedinUser.Size = new System.Drawing.Size(95, 13);
             this.labelLoggedinUser.TabIndex = 37;
@@ -300,6 +301,16 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(5, 12);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(75, 23);
+            this.backButton.TabIndex = 41;
+            this.backButton.Text = "Go back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,6 +318,7 @@
             this.BackgroundImage = global::Blackjack.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(700, 500);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.labelBetAmount);
             this.Controls.Add(this.textBoxBetAmount);
             this.Controls.Add(this.labelBalance);
@@ -379,6 +391,7 @@
         private System.Windows.Forms.TextBox textBoxBetAmount;
         private System.Windows.Forms.Label labelBetAmount;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button backButton;
     }
 }
 
