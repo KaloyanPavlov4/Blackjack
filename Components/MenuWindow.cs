@@ -34,12 +34,6 @@ namespace Blackjack
             loggedUserName = username;
             pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLogoutNormal.png");
             labelLoggedinUser.Text = "Logged in: " + username;
-
-            //Променя снимките на бутона да са за изход от акаунта
-            pictureBoxLoginButton.MouseEnter -= pictureBoxLoginButton_MouseEnter;
-            pictureBoxLoginButton.MouseEnter += pictureBoxLogoutButton_MouseEnter;
-            pictureBoxLoginButton.MouseLeave -= pictureBoxLoginButton_MouseLeave;
-            pictureBoxLoginButton.MouseLeave += pictureBoxLogoutButton_MouseLeave;
         }
 
         public void LogOut()
@@ -48,12 +42,6 @@ namespace Blackjack
             loggedUserName = null;
             pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
             labelLoggedinUser.Text = "Not logged in";
-
-            //Променя снимките на бутона да са за вход
-            pictureBoxLoginButton.MouseEnter -= pictureBoxLogoutButton_MouseEnter;
-            pictureBoxLoginButton.MouseEnter += pictureBoxLoginButton_MouseEnter;
-            pictureBoxLoginButton.MouseLeave -= pictureBoxLogoutButton_MouseLeave;
-            pictureBoxLoginButton.MouseLeave += pictureBoxLoginButton_MouseLeave;
         }
 
         private void pictureBoxPlayButton_Click(object sender, EventArgs e)
@@ -113,22 +101,15 @@ namespace Blackjack
         }
         private void pictureBoxLoginButton_MouseEnter(object sender, EventArgs e)
         {
-            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginHover");
+            if (!loggedIn) MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginHover");
+            else  MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutHover");
+            
         }
 
         private void pictureBoxLoginButton_MouseLeave(object sender, EventArgs e)
         {
-            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginNormal");
-        }
-
-        private void pictureBoxLogoutButton_MouseEnter(object sender, EventArgs e)
-        {
-            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutHover");
-        }
-
-        private void pictureBoxLogoutButton_MouseLeave(object sender, EventArgs e)
-        {
-            MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutNormal");
+            if (!loggedIn) MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLoginNormal");
+            else MainForm.ChangePictureBoxImage(pictureBoxLoginButton, "buttonLogoutNormal");
         }
     }
 }
