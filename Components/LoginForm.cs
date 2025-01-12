@@ -23,6 +23,7 @@ namespace Blackjack
                 try
                 {
                     dbHelper.OpenConnection(connection);
+                    //Ако бутонът за създаване на нов потребител е избран, добавя нов потребител с баланс 500
                     if (radioButtonRegisterToggle.Checked)
                     {
                         CheckInputSize();
@@ -42,6 +43,7 @@ namespace Blackjack
                             return;
                         }
                     }
+                    //Ако не е, се опитва да извлече потребител с въведените данни
                     else
                     {
                         CheckInputSize();
@@ -51,6 +53,7 @@ namespace Blackjack
                             command.CommandText = query;
                             object result = command.ExecuteScalar();
                             int resultCount = Convert.ToInt32(result);
+                            //Ако няма такъв, уведомява потребителя
                             if (resultCount == 0)
                             {
                                 MessageBox.Show("Wrong username or password", "!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -63,10 +66,12 @@ namespace Blackjack
                 }
                 catch (Exception ex)
                 {
+                    //При възникване грешка при добавянето на нов потребител, защото вече съществува такъв със същото име
                     if (ex.GetHashCode().ToString() == "33420276")
                     {
                         MessageBox.Show("User already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    //При възникване на други грешки с базата данни
                     else
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -82,6 +87,7 @@ namespace Blackjack
             
         }
 
+        //Проверява че името и паролата трябва да са поне 3 символа
         private void CheckInputSize()
         {
             if (textBoxUsername.Text.Length < 3)

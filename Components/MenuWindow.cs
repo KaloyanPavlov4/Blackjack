@@ -35,6 +35,7 @@ namespace Blackjack
             pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLogoutNormal.png");
             labelLoggedinUser.Text = "Logged in: " + username;
 
+            //Променя снимките на бутона да са за изход от акаунта
             pictureBoxLoginButton.MouseEnter -= pictureBoxLoginButton_MouseEnter;
             pictureBoxLoginButton.MouseEnter += pictureBoxLogoutButton_MouseEnter;
             pictureBoxLoginButton.MouseLeave -= pictureBoxLoginButton_MouseLeave;
@@ -48,6 +49,7 @@ namespace Blackjack
             pictureBoxLoginButton.Image = Image.FromFile(resourceFolderPath + "buttonLoginNormal.png");
             labelLoggedinUser.Text = "Not logged in";
 
+            //Променя снимките на бутона да са за вход
             pictureBoxLoginButton.MouseEnter -= pictureBoxLogoutButton_MouseEnter;
             pictureBoxLoginButton.MouseEnter += pictureBoxLoginButton_MouseEnter;
             pictureBoxLoginButton.MouseLeave -= pictureBoxLogoutButton_MouseLeave;
@@ -89,6 +91,10 @@ namespace Blackjack
             Dispose();
         }
 
+        /*
+         * Методи за снимките на бутоните
+         * Снимката на бутона се променя при слагане на мишката върху него и се връща при махане на мишката
+         */
         private void pictureBoxPlayButton_MouseEnter(object sender, EventArgs e)
         {
             MainForm.ChangePictureBoxImage(pictureBoxPlayButton, "buttonPlayHover");

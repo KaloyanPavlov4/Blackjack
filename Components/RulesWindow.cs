@@ -31,6 +31,7 @@ namespace Blackjack
             isChecked = radioButtonLanguageToggle.Checked;
         }
 
+        //Променя езика на правилата спрямо изборът на радио бутона
         private void radioButtonLanguageToggle_Click(object sender, EventArgs e)
         {
             Image leftToggle = Image.FromFile(resourceFolderPath + "toggleButtonLeft.png");

@@ -11,8 +11,11 @@ namespace Blackjack
     public partial class GameWindow : Form
     {
         private readonly string resourceFolderPath = Path.Combine(Directory.GetParent(Application.StartupPath).Parent.FullName, "Resources\\");
+        // Едно тесте
         private CardNames[] singleDeck;
+        // Двете тестета
         private List<Card> fullDeck;
+        // Променлива за следващата карта в тестето
         private int nextCard = 0;
         private Player player;
         private Player dealer;
@@ -28,6 +31,12 @@ namespace Blackjack
             InitializeComponent();
         }
 
+        /*
+         * При зареждане на формата се зареждат 2 тестета и се разбъркват 
+         * Играчът и крупието се инициализират
+         * Бутоните за игра стават достъпни, а тези за връщане и за залагане - не
+         * Проверява дали има потребител и ако има му взима баланса
+         */
         private void Form1_Load(object sender, EventArgs e)
         {
             singleDeck = (CardNames[])Enum.GetValues(typeof(CardNames));
@@ -54,6 +63,9 @@ namespace Blackjack
             }
         }
 
+        /*
+         * Стартиране на нова ръка
+         */
         private void dealButton_Click(object sender, EventArgs e)
         {
             if (textBoxBetAmount.Text.Length == 0)
@@ -85,6 +97,12 @@ namespace Blackjack
             }
         }
 
+        /*
+         * Тегли се карта на играча
+         * Картата се визуализира
+         * Проверява се дали се надхвръля 21 и ако се - печели крупието
+         * Ако играча изтегли 5 карти - печели автоматично
+         */
         private void hitMeButton_Click(object sender, EventArgs e)
         {
             Hit(player);
@@ -99,6 +117,12 @@ namespace Blackjack
             if (player.Hand.Count == 5) playerWin();
         }
 
+        /*
+         * Когато играчът иска да приключи своя ред, започва крупието да играе
+         * Крупието винаги играе според предварително зададени правила и няма право на лично решение.
+         * Ако общата стойност на картите на крупието е 16 или по-малко, то задължително тегли карта.
+         * Ако стойността е 17 или повече, крупието спира.
+         */
         private void standButton_Click(object sender, EventArgs e)
         {
             while (dealer.Hand.Count < 5 && GetScore(dealer) < 17)
@@ -113,6 +137,12 @@ namespace Blackjack
             checkResult();
         }
 
+        /*
+         * Методът се извиква при нова игра
+         * Теглят се 2 карти на играча и на крупието
+         * Картите се разкриват без втората карта на крупието
+         * Ако някои от играчите има 21 се проверя автоматично дали има победител или равенство
+         */
         private void newHandDraw()
         {
             dealerCards[1].Image = Image.FromFile(resourceFolderPath + "faceDownCard" + ".png");
@@ -129,14 +159,7 @@ namespace Blackjack
             playerCards[1].Image = Image.FromFile(resourceFolderPath + player.Hand[1].NameOfCard + ".png");
             if (GetScore(dealer) == 21)
             {
-                if (GetScore(player) == 21)
-                {
-                    draw();
-                }
-                else
-                {
-                    dealerWin();
-                }
+                checkResult();
             }
             else if (GetScore(player) == 21)
             {
@@ -144,6 +167,9 @@ namespace Blackjack
             }
         }
 
+        /*
+         * Тегли се карта на посочения играч И се променя етикета за точките му
+         */
         private void Hit(Player p)
         {
             p.addCard(fullDeck[nextCard]);
@@ -151,6 +177,11 @@ namespace Blackjack
             labelPlayerScore.Text = "Score: " + GetScore(player).ToString();
         }
 
+        /*
+         * Връща резултата на играча
+         * Ако има аса в тестето и резултата е над 21, минава през всяко и му сменя стойността на 1 докато не станат точките 21 или под
+         * Ако мине през всички аса и резултата е още над 21, го връща него
+         */
         private int GetScore(Player p)
         {
             int score = p.Hand.Select(card => card.Value).Sum();
@@ -197,6 +228,7 @@ namespace Blackjack
         private void dealerWin()
         {
             endGame("You lose! -$" + textBoxBetAmount.Text);
+            //При баланс от 0, дава 50 долара, за да може потребителят да продължи да играе
             if (balance == 0)
             {
                 MessageBox.Show("You suddenly remember you have 50 dollars in your back pocket!");
@@ -217,6 +249,10 @@ namespace Blackjack
             endGame("Draw!");
         }
 
+        /*
+         * Край на ръката на крупието
+         * Визуализира се неговия резултат
+         */
         private void endGame(string resultOfGame)
         {
             dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
@@ -232,6 +268,7 @@ namespace Blackjack
             enableBackButton();
         }
 
+        //Чисти ръцете на играчите и скрива предишните карти
         private void resetGame()
         {
             player.clearHand();
@@ -244,6 +281,10 @@ namespace Blackjack
             }
         }
 
+        /*
+         * Ако потребителят е влезнал прави заявка към базата данни да му промени баланса
+         * Ако не е, само променя баланса на формата
+         */
         private void UpdateBalance(int change)
         {
             if (loggedIn)
@@ -276,6 +317,10 @@ namespace Blackjack
             balance = GetBalance();
         }
 
+        /*
+         * Ако потребителят е влезнал, прави заявка към базата данни да му вземе баланса
+         * Ако не е, връща баланса на формата
+         */
         private int GetBalance()
         {
             if (loggedIn)
@@ -311,6 +356,7 @@ namespace Blackjack
             return balance;
         }
 
+        //Разбърква тестето по случаен принцип
         private void Shuffle(List<Card> list)
         {
             Random rng = new Random();
@@ -325,6 +371,7 @@ namespace Blackjack
             nextCard = 0;
         }
 
+        //Методът подсигурява че в кутията за залог може да се въвеждат само числа
         private void textBoxBetAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -333,6 +380,7 @@ namespace Blackjack
             }
         }
 
+        //Връща се в менюто
         private void pictureBoxBackButton_Click(object sender, EventArgs e)
         {
             MenuWindow menuWindow = new MenuWindow();
@@ -344,6 +392,10 @@ namespace Blackjack
             Dispose();
         }
 
+        /*
+        * Методи за снимките на бутоните
+        * Снимката на бутона се променя при слагане на мишката върху него и се връща при махане на мишката
+        */
         private void disableBackButton()
         {
             MainForm.ChangePictureBoxImage(backButton, "buttonBackDisabled");
