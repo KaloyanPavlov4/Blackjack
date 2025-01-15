@@ -125,9 +125,9 @@ namespace Blackjack
          */
         private void standButton_Click(object sender, EventArgs e)
         {
+            dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
             while (dealer.Hand.Count < 5 && GetScore(dealer) < 17)
             {
-                dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
                 Hit(dealer);
                 labelDealerScore.Text = "Score: " + GetScore(dealer);
                 dealerCards[dealer.Hand.Count - 1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[dealer.Hand.Count - 1].NameOfCard + ".png");
@@ -159,10 +159,12 @@ namespace Blackjack
             playerCards[1].Image = Image.FromFile(resourceFolderPath + player.Hand[1].NameOfCard + ".png");
             if (GetScore(dealer) == 21)
             {
+                dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
                 checkResult();
             }
             else if (GetScore(player) == 21)
             {
+                dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
                 playerWin();
             }
         }
@@ -255,7 +257,6 @@ namespace Blackjack
          */
         private void endGame(string resultOfGame)
         {
-            dealerCards[1].Image = Image.FromFile(resourceFolderPath + dealer.Hand[1].NameOfCard + ".png");
             labelDealerScore.Text = "Score: " + GetScore(dealer);
             hitMeButton.Enabled = false;
             standButton.Enabled = false;
